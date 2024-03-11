@@ -1,0 +1,1248 @@
+Program.Sub.ScreenSU.Start
+gui.SS_Form1..create
+gui.SS_Form1..caption("Multiple Salesperson Commission Split")
+gui.SS_Form1..size(16695,8415)
+gui.SS_Form1..position(0,0)
+gui.SS_Form1..event(unload,ss_form1_unload)
+gui.SS_Form1..alwaysontop(False)
+gui.SS_Form1..fontname("Arial")
+gui.SS_Form1..fontsize(8)
+gui.SS_Form1..forecolor(0)
+gui.SS_Form1..fontstyle(,,,,)
+gui.SS_Form1..BackColor(-2147483633)
+gui.SS_Form1..controlbox(True)
+gui.SS_Form1..maxbutton(False)
+gui.SS_Form1..minbutton(False)
+gui.SS_Form1..mousepointer(0)
+gui.SS_Form1..moveable(True)
+gui.SS_Form1..sizeable(False)
+gui.SS_Form1..ShowInTaskBar(True)
+gui.SS_Form1..titlebar(True)
+gui.SS_Form1.lbl_dtpStart.create(label,"Starting Invoice Date",True,1800,200,1,100,135,True,0,Arial,8,-2147483633,0)
+gui.SS_Form1.lbl_dtpStart.defaultvalue("")
+gui.SS_Form1.lbl_dtpStart.controlgroup(0)
+gui.SS_Form1.dtpStart.create(datepicker)
+gui.SS_Form1.dtpStart.visible(True)
+gui.SS_Form1.dtpStart.size(1800,345)
+gui.SS_Form1.dtpStart.zorder(0)
+gui.SS_Form1.dtpStart.position(100,335)
+gui.SS_Form1.dtpStart.enabled(True)
+gui.SS_Form1.dtpStart.checkbox(False)
+gui.SS_Form1.dtpStart.defaultvalue("")
+gui.SS_Form1.dtpStart.controlgroup(0)
+gui.SS_Form1.lbl_dtpEnd.create(label,"Ending Invoice Date",True,1800,200,1,1985,135,True,0,Arial,8,-2147483633,0)
+gui.SS_Form1.lbl_dtpEnd.defaultvalue("")
+gui.SS_Form1.lbl_dtpEnd.controlgroup(0)
+gui.SS_Form1.dtpEnd.create(datepicker)
+gui.SS_Form1.dtpEnd.visible(True)
+gui.SS_Form1.dtpEnd.size(1800,345)
+gui.SS_Form1.dtpEnd.zorder(0)
+gui.SS_Form1.dtpEnd.position(1985,335)
+gui.SS_Form1.dtpEnd.enabled(True)
+gui.SS_Form1.dtpEnd.checkbox(False)
+gui.SS_Form1.dtpEnd.defaultvalue("")
+gui.SS_Form1.dtpEnd.controlgroup(0)
+gui.SS_Form1.cmdSelect.create(button)
+gui.SS_Form1.cmdSelect.caption("Select")
+gui.SS_Form1.cmdSelect.visible(True)
+gui.SS_Form1.cmdSelect.size(1000,360)
+gui.SS_Form1.cmdSelect.zorder(0)
+gui.SS_Form1.cmdSelect.position(3870,335)
+gui.SS_Form1.cmdSelect.enabled(True)
+gui.SS_Form1.cmdSelect.fontname("Arial")
+gui.SS_Form1.cmdSelect.fontsize(8)
+gui.SS_Form1.cmdSelect.event(click,cmdselect_click)
+gui.SS_Form1.cmdSelect.defaultvalue("")
+gui.SS_Form1.cmdSelect.controlgroup(0)
+gui.SS_Form1.cmdSave.create(button)
+gui.SS_Form1.cmdSave.caption("Save")
+gui.SS_Form1.cmdSave.visible(True)
+gui.SS_Form1.cmdSave.size(1000,360)
+gui.SS_Form1.cmdSave.zorder(0)
+gui.SS_Form1.cmdSave.position(100,7475)
+gui.SS_Form1.cmdSave.enabled(True)
+gui.SS_Form1.cmdSave.fontname("Arial")
+gui.SS_Form1.cmdSave.fontsize(8)
+gui.SS_Form1.cmdSave.event(click,cmdsave_click)
+gui.SS_Form1.cmdSave.defaultvalue("")
+gui.SS_Form1.cmdSave.controlgroup(0)
+gui.SS_Form1.cmdUpdate.create(button)
+gui.SS_Form1.cmdUpdate.caption("Update")
+gui.SS_Form1.cmdUpdate.visible(True)
+gui.SS_Form1.cmdUpdate.size(1000,360)
+gui.SS_Form1.cmdUpdate.zorder(0)
+gui.SS_Form1.cmdUpdate.position(1185,7475)
+gui.SS_Form1.cmdUpdate.enabled(True)
+gui.SS_Form1.cmdUpdate.fontname("Arial")
+gui.SS_Form1.cmdUpdate.fontsize(8)
+gui.SS_Form1.cmdUpdate.event(click,cmdupdate_click)
+gui.SS_Form1.cmdUpdate.defaultvalue("")
+gui.SS_Form1.cmdUpdate.controlgroup(0)
+gui.SS_Form1.gsfgComm.create(gsflexgrid)
+gui.SS_Form1.gsfgComm.FixedRows(0)
+gui.SS_Form1.gsfgComm.FixedCols(0)
+gui.SS_Form1.gsfgComm.visible(True)
+gui.SS_Form1.gsfgComm.size(16170,6540)
+gui.SS_Form1.gsfgComm.zorder(0)
+gui.SS_Form1.gsfgComm.position(100,805)
+gui.SS_Form1.gsfgComm.enabled(True)
+gui.SS_Form1.gsfgComm.event(mousedown,gsfgcomm_mousedown)
+gui.SS_Form1.gsfgComm.event(posttextmatrix,gsfgcomm_posttextmatrix)
+gui.SS_Form1.dtpStart.tabstop(true)
+gui.SS_Form1.dtpStart.tabindex(1)
+gui.SS_Form1.dtpEnd.tabstop(true)
+gui.SS_Form1.dtpEnd.tabindex(2)
+gui.SS_Form1.cmdSelect.tabstop(true)
+gui.SS_Form1.cmdSelect.tabindex(3)
+gui.SS_Form1.cmdSave.tabstop(true)
+gui.SS_Form1.cmdSave.tabindex(4)
+gui.SS_Form1.cmdUpdate.tabstop(true)
+gui.SS_Form1.cmdUpdate.tabindex(5)
+
+
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+
+Variable.UDT.Line.Define("Invoice",String,Invoice)
+Variable.UDT.Line.Define("Order_No",String,Order_No)
+Variable.UDT.Line.Define("Order_Line",String,Order_Line)
+Variable.UDT.Line.Define("Customer",String,Customer)
+Variable.UDT.Line.Define("Date_Invoice",Date,Date_Invoice,"YYYYMMDD")
+Variable.UDT.Line.Define("Part",String,Part)
+Variable.UDT.Line.Define("Extension",Float,Extension)
+Variable.UDT.Line.Define("Product_Line",String,Product_Line)
+Variable.UDT.Line.Define("Branch",String,Branch)
+Variable.UDT.Line.Define("Cost",Float,Cost)
+Variable.UDT.Line.Define("Price_Discount_Order",Float,Price_Discount_Order)
+Variable.UDT.Line.Define("State",String)
+Variable.UDT.Line.Define("Country",String)
+Variable.UDT.Line.Define("Customer_Ship",String)
+Variable.UDT.Line.Define("State_Ship",String)
+Variable.UDT.Line.Define("Country_Ship",String)
+Variable.UDT.Line.Define("Code_Sort",String)
+Variable.UDT.Line.Define("Order_Suffix",String,Order_Suffix)
+Variable.UDT.Line.Define("Province",String)
+Variable.UDT.Line.Define("Salesperson",String,Salesperson)
+Variable.UDT.Line.Define("Gross",Long)
+Variable.UDT.Line.Define("Type",String)
+Variable.UDT.Line.Define("Category",String)
+Variable.UDT.Line.Define("Tier",String)
+Variable.UDT.Line.Define("Qty_Ordered",Float,Qty_Ordered)
+Variable.uGlobal.uLine.Declare("Line")
+
+Variable.UDT.Head.Define("Order_No",String,Order_No)
+Variable.UDT.Head.Define("Invoice",String,Invoice)
+Variable.UDT.Head.Define("State",String,State)
+Variable.UDT.Head.Define("Customer",String,Customer)
+Variable.UDT.Head.Define("Country",String,Country)
+Variable.UDT.Head.Define("Customer_Ship",String,Customer_Ship)
+Variable.UDT.Head.Define("State_Ship",String,State_Ship)
+Variable.UDT.Head.Define("Country_Ship",String,Country_Ship)
+Variable.UDT.Head.Define("Code_Sort",String,Code_Sort)
+Variable.UDT.Head.Define("Order_Suffix",String,Order_Suffix)
+Variable.uGlobal.uHead.Declare("Head")
+
+Variable.UDT.Screen.Define("Invoice",String,Invoice)
+Variable.UDT.Screen.Define("Order_No",String,Order_No)
+Variable.UDT.Screen.Define("Order_Line",String,Order_Line)
+Variable.UDT.Screen.Define("Customer",String,Customer)
+Variable.UDT.Screen.Define("Date_Invoice",Date,Date_Invoice,"YYYYMMDD")
+Variable.UDT.Screen.Define("Part",String,Part)
+Variable.UDT.Screen.Define("Product_Line",String,Product_Line)
+Variable.UDT.Screen.Define("Extension",Float,Extension)
+Variable.UDT.Screen.Define("Paid_As",String)
+Variable.UDT.Screen.Define("Comm_Rate",Float)
+Variable.UDT.Screen.Define("Comm_Amt",Float)
+Variable.UDT.Screen.Define("Comm_Type",String)
+Variable.UDT.Screen.Define("Salesperson",String)
+Variable.UDT.Screen.Define("Priority",Long)
+Variable.uGlobal.uScreen.Declare("Screen")
+
+Variable.UDT.uInvoice.Define("Salesperson",String)
+Variable.UDT.uInvoice.Define("Invoice_Total",Float)
+Variable.UDT.uInvoice.Define("Comm_Pay",Float)
+Variable.UDT.uInvoice.Define("Invoice",String)
+Variable.UDT.uInvoice.Define("Customer",String)
+Variable.UDT.uInvoice.Define("Invoice_Date",String)
+Variable.UDT.uInvoice.Define("Order",String)
+Variable.uGlobal.uInvoice.Declare("uInvoice")
+
+Variable.UDT.uInvoiceExt.Define("Invoice",String)
+Variable.UDT.uInvoiceExt.Define("Order",String)
+Variable.UDT.uInvoiceExt.Define("Line",String)
+Variable.uGlobal.uInvoiceExt.Declare("uInvoiceExt")
+
+
+Variable.UDT.Vendors.Define("Vendor",String,Vendor)
+Variable.UDT.Vendors.Define("CommType",String)
+Variable.UDT.Vendors.Define("Rate",Float)
+Variable.UDT.Vendors.Define("Gross",Long)
+Variable.uGlobal.uVendors.Declare("Vendors")
+Variable.UDT.uInvReceipts.Define("Invoice",String,Invoice)
+Variable.UDT.uInvReceipts.Define("Customer",String,Customer)
+Variable.uGlobal.uInvReceipt.Declare("uInvReceipts")
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+
+F.ODBC.Connection!con.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass)
+F.Intrinsic.Control.CallSub(Buildgrid)
+Gui.SS_Form1..Show
+
+' use 5/30/2013 date for testing
+
+Program.Sub.Main.End
+
+program.sub.cmdupdate_click.start
+F.Intrinsic.Control.SetErrorHandler("cmdupdate_click_Err")
+F.Intrinsic.Control.ClearErrors
+
+Gui.SS_Form1.cmdSave.Enabled(false)
+Gui.SS_Form1.cmdUpdate.Enabled(false)
+
+
+V.Local.sError.Declare(String)
+V.Local.iRet.Declare(Long)
+V.Local.sRow.Declare(String)
+V.Local.iRows.Declare(Long)
+V.Local.iRowOrd.Declare(Long)
+V.Local.i.Declare(Long)
+V.Local.sInvDate.Declare(String)
+V.Local.sRet.Declare(String)
+V.Local.sRet1.Declare(String)
+V.Local.iUB.Declare(Long)
+V.Local.sFile.Declare(String)
+V.Local.sWrite.Declare(String)
+V.Local.bChk.Declare(Boolean)
+V.Local.sInvTotal.Declare(String)
+V.Local.sCommPay.Declare(String)
+V.Local.sFiller.Declare(String)
+V.Local.sExecute.Declare(String)
+V.Local.sSql.Declare(String)
+V.Local.sSel.Declare(String)
+V.Local.fVal.Declare(Float)
+V.Local.sLine.Declare(String)
+
+' make sure udts are empty
+V.uGlobal.uInvoice.Redim(-1,-1)
+V.uGlobal.uInvoiceExt.Redim(-1,-1)
+
+' verify update
+F.Intrinsic.UI.Msgbox("Are you sure you want to upload selected records to Global Shop? Doing so will flag all records as commission built.","Upload Confirmation",4,V.Local.iRet)
+F.Intrinsic.Control.If(V.Local.iRet,=,6)
+
+	' commit data to the grid, to be sure all changes are saved.  Save grid data to temp table
+	Gui.SS_Form1.gsfgComm.Commit
+	F.Intrinsic.Control.CallSub(Cmdsave_click)
+
+	' verify there is data on the first row of the grid
+	Gui.SS_Form1.gsfgComm.ReadRow(1,V.Local.sRow)
+	F.Intrinsic.String.Split(V.Local.sRow,"*!*",V.Local.sRow)
+	F.Intrinsic.Control.If(V.Local.sRow(0),<>,"")
+		V.Local.iRows.Set(V.Screen.SS_Form1!gsfgComm.Rows)
+
+		' copied this and not really sure what's up with the 2-> rows...could have been just 1 -> (rows-1)
+		F.Intrinsic.Control.For(V.Local.i,2,V.Local.iRows,1)
+			F.Intrinsic.Math.Sub(V.Local.i,1,V.Local.iRowOrd)
+			Gui.SS_Form1.gsfgComm.ReadRow(V.Local.iRowOrd,V.Local.sRow)
+			F.Intrinsic.String.Split(V.Local.sRow,"*!*",V.Local.sRow)
+
+			' add net to GCG_COMM_CAT_TIER
+			' get line SP, Cat
+			F.Intrinsic.Variable.UDTMultiSeek(V.uGlobal.uLine!Invoice,V.Local.sRow(0).Trim,V.uGlobal.uLine!Order_No,V.Local.sRow(1).Trim,V.Local.sRet)
+			F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+			F.Intrinsic.String.Concat("select * from GCG_COMM_Cat_Tier where Salesperson ='",V.uGlobal.uLine(v.Local.sRet(0))!Salesperson,"' and Category ='",V.uGlobal.uLine(v.Local.sRet(0))!Category,"' ",V.Local.sSel)
+			F.ODBC.Connection!con.OpenRecordsetRW("rstNew",V.Local.sSel)
+				F.Intrinsic.Control.If(V.ODBC.con!rstNew.EOF,=,True)
+					F.ODBC.con!rstNew.AddNew
+					F.ODBC.con!rstNew.Set!Salesperson(V.uGlobal.uLine(v.Local.sRet(0))!Salesperson)
+					F.ODBC.con!rstNew.Set!Category(V.uGlobal.uLine(v.Local.sRet(0))!Category)
+					F.ODBC.con!rstNew.Set!Tier(V.uGlobal.uLine(v.Local.sRet(0))!Tier)
+					F.ODBC.con!rstNew.Set!Net_Sales(V.Local.sRow(12).Float)
+					F.ODBC.con!rstNew.Set!Prior_Year(0)
+					F.ODBC.con!rstNew.Set!Date(V.Local.sRow(4).PervasiveDate)
+				F.Intrinsic.Control.Else
+					F.Intrinsic.Math.Add(V.ODBC.con!rstNew.FieldVal!Net_Sales,V.Local.sRow(12).Float,V.Local.fVal)
+					F.ODBC.con!rstNew.Set!Net_Sales(V.Local.fVal)
+				F.Intrinsic.Control.EndIf
+
+					F.ODBC.con!rstNew.Update
+			F.ODBC.con!rstNew.Close
+
+			' first row to the udt
+			F.Intrinsic.Control.If(V.uGlobal.uInvoice.UBound,=,-1)
+				V.uGlobal.uInvoice.Redim(0,0)
+				V.uGlobal.uInvoice!Customer.Set(V.Local.sRow(3).Trim)
+				V.uGlobal.uInvoice!Invoice.Set(V.Local.sRow(0).Trim)
+				F.Intrinsic.String.Format(V.Local.sRow(4),"YYMMDD",V.Local.sInvDate)
+				V.uGlobal.uInvoice!Invoice_Date.Set(V.Local.sInvDate)
+				V.uGlobal.uInvoice!Salesperson.Set(V.Local.sRow(5).Trim)
+				V.uGlobal.uInvoice!Order.Set(V.Local.sRow(1).Trim)
+				V.uGlobal.uInvoice!Invoice_Total.Set(V.Local.sRow(9).Float)
+				V.uGlobal.uInvoice!Comm_Pay.Set(V.Local.sRow(12).Float)
+
+				V.uGlobal.uInvoiceExt.Redim(0,0)
+				V.uGlobal.uInvoiceExt!Invoice.Set(V.Local.sRow(0).Trim)
+				V.uGlobal.uInvoiceExt!Order.Set(V.Local.sRow(1).Trim)
+				F.Intrinsic.String.Lpad(V.Local.sRow(2).Trim,"0",4,V.Local.sRow(2))
+				V.uGlobal.uInvoiceExt!Line.Set(V.Local.sRow(2).Trim)
+
+			' subsequent rows to the udt
+			F.Intrinsic.Control.Else
+				F.Intrinsic.Variable.UDTSeek(V.uGlobal.uInvoice!Invoice,V.Local.sRow(0).Trim,0,V.Local.sRet)
+
+				' see if current row/invoice is already on the Invoice udt
+				F.Intrinsic.Control.If(V.Local.sRet,=,"")
+					V.Local.iUB.Set(V.uGlobal.uInvoice.UBound)
+					F.Intrinsic.Math.Add(V.Local.iUB,1,V.Local.iUB)
+					V.uGlobal.uInvoice.RedimPreserve(0,V.Local.iUB)
+					V.uGlobal.uInvoice(V.Local.iUB)!Customer.Set(V.Local.sRow(3).Trim)
+					V.uGlobal.uInvoice(V.Local.iUB)!Invoice.Set(V.Local.sRow(0).Trim)
+					F.Intrinsic.String.Format(V.Local.sRow(4),"YYMMDD",V.Local.sInvDate)
+					V.uGlobal.uInvoice(V.Local.iUB)!Invoice_Date.Set(V.Local.sInvDate)
+					V.uGlobal.uInvoice(V.Local.iUB)!Salesperson.Set(V.Local.sRow(5).Trim)
+					V.uGlobal.uInvoice(V.Local.iUB)!Order.Set(V.Local.sRow(1).Trim)
+					V.uGlobal.uInvoice(V.Local.iUB)!Invoice_Total.Set(V.Local.sRow(9).Float)
+					V.uGlobal.uInvoice(V.Local.iUB)!Comm_Pay.Set(V.Local.sRow(12).Float)
+
+					V.Local.iUB.Set(V.uGlobal.uInvoiceExt.UBound)
+					F.Intrinsic.Math.Add(V.Local.iUB,1,V.Local.iUB)
+					V.uGlobal.uInvoiceExt.RedimPreserve(0,V.Local.iUB)
+					V.uGlobal.uInvoiceExt(V.Local.iUB)!Invoice.Set(V.Local.sRow(0).Trim)
+					V.uGlobal.uInvoiceExt(V.Local.iUB)!Order.Set(V.Local.sRow(1).Trim)
+					F.Intrinsic.String.Rpad(V.local.sRow(2).Trim,"0",4,V.local.sRow(2))
+					V.uGlobal.uInvoiceExt(V.Local.iUB)!Line.Set(V.Local.sRow(2).Trim)
+
+				' if not see if it's already on the Invoice EXT udt
+				F.Intrinsic.Control.Else
+					F.Intrinsic.String.Rpad(V.local.sRow(2).Trim,"0",4,V.local.sRow(2))
+					F.Intrinsic.Variable.UDTMultiSeek(V.uGlobal.uInvoiceExt!Invoice,V.Local.sRow(0).Trim,V.uGlobal.uInvoiceExt!Order,V.Local.sRow(1).Trim,V.uGlobal.uInvoiceExt!Line,V.Local.sRow(2).Trim,V.Local.sRet1)
+					F.Intrinsic.Control.If(V.Local.sRet1,=,"")
+						F.Intrinsic.Math.Add(V.uGlobal.uInvoice(V.Local.sRet.Long)!Invoice_Total,V.Local.sRow(9).Float,V.uGlobal.uInvoice(V.Local.sRet.Long)!Invoice_Total)
+
+						V.Local.iUB.Set(V.uGlobal.uInvoiceExt.UBound)
+						F.Intrinsic.Math.Add(V.Local.iUB,1,V.Local.iUB)
+						V.uGlobal.uInvoiceExt.RedimPreserve(0,V.Local.iUB)
+						V.uGlobal.uInvoiceExt(V.Local.iUB)!Invoice.Set(V.Local.sRow(0).Trim)
+						V.uGlobal.uInvoiceExt(V.Local.iUB)!Order.Set(V.Local.sRow(1).Trim)
+						V.uGlobal.uInvoiceExt(V.Local.iUB)!Line.Set(V.Local.sRow(2).Trim)
+					F.Intrinsic.Control.EndIf
+
+					F.Intrinsic.Math.Add(V.uGlobal.uInvoice(V.Local.sRet.Long)!Comm_Pay,V.Local.sRow(12).Float,V.uGlobal.uInvoice(V.Local.sRet.Long)!Comm_Pay)
+				F.Intrinsic.Control.EndIf
+			F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.Next(V.Local.i)
+
+		' if there are commissions for invoices to update
+		F.Intrinsic.Control.If(V.uGlobal.uInvoice.UBound,>,-1)
+
+			' make sure you will have a fresh upload file
+			F.Intrinsic.String.Concat(V.Caller.FilesDir,"\OE-COMMISSIONS.txt",V.Local.sFile)
+			F.Intrinsic.File.Exists(V.Local.sFile,V.Local.bChk)
+			F.Intrinsic.Control.If(V.Local.bChk,=,True)
+				F.Intrinsic.File.DeleteFile(V.Local.sFile)
+			F.Intrinsic.Control.EndIf
+
+			' for each invoice, update the order_hist_line, and format all ofthe data fortheupload file
+			F.Intrinsic.Control.For(V.Local.i,V.uGlobal.uInvoice.LBound,V.uGlobal.uInvoice.UBound,1)
+				F.Intrinsic.String.Concat("Update ORDER_HIST_LINE Set FLAG_COMM_BUILT = 'Y' where INVOICE = '",V.uGlobal.uInvoice(V.Local.i)!Invoice,"'",V.Local.sSql)
+				F.ODBC.Connection!con.Execute(V.Local.sSql)
+				F.Intrinsic.String.RPad(V.uGlobal.uInvoice(V.Local.i)!Customer," ",6,V.uGlobal.uInvoice(V.Local.i)!Customer)
+				F.Intrinsic.String.RPad(V.uGlobal.uInvoice(V.Local.i)!Invoice," ",6,V.uGlobal.uInvoice(V.Local.i)!Invoice)
+				F.Intrinsic.String.RPad(V.uGlobal.uInvoice(V.Local.i)!Salesperson," ",3,V.uGlobal.uInvoice(V.Local.i)!Salesperson)
+				F.Intrinsic.String.LPad(V.uGlobal.uInvoice(V.Local.i)!Order,"0",7,V.uGlobal.uInvoice(V.Local.i)!Order)
+
+				F.Intrinsic.Control.If(V.uGlobal.uInvoice(V.Local.i)!Invoice_Total,<,0)
+					F.Intrinsic.String.Format(V.uGlobal.uInvoice(V.Local.i)!Invoice_Total,"0000000000.00",V.Local.sInvTotal)
+				F.Intrinsic.Control.Else
+					F.Intrinsic.String.Format(V.uGlobal.uInvoice(V.Local.i)!Invoice_Total,"0000000000.00",V.Local.sInvTotal)
+					F.Intrinsic.String.LPad(V.Local.sInvTotal," ",14,V.Local.sInvTotal)
+				F.Intrinsic.Control.EndIf
+
+				F.Intrinsic.Control.If(V.uGlobal.uInvoice(V.Local.i)!Comm_Pay,<,0)
+					F.Intrinsic.String.Format(V.uGlobal.uInvoice(V.Local.i)!Comm_Pay,"0000000000.00",V.Local.sCommPay)
+				F.Intrinsic.Control.Else
+					F.Intrinsic.String.Format(V.uGlobal.uInvoice(V.Local.i)!Comm_Pay,"0000000000.00",V.Local.sCommPay)
+					F.Intrinsic.String.LPad(V.Local.sCommPay," ",14,V.Local.sCommPay)
+				F.Intrinsic.Control.EndIf
+
+				F.Intrinsic.String.RPad(V.Local.sFiller," ",69,V.Local.sFiller)
+				F.Intrinsic.Control.If(V.Local.sWrite,=,"")
+					F.Intrinsic.String.Concat(V.uGlobal.uInvoice(V.Local.i)!Customer,V.uGlobal.uInvoice(V.Local.i)!Invoice,V.uGlobal.uInvoice(V.Local.i)!Invoice_Date,V.uGlobal.uInvoice(V.Local.i)!Salesperson,V.uGlobal.uInvoice(V.Local.i)!Order,V.Local.sInvTotal,V.Local.sCommPay,V.Local.sFiller,V.Local.sWrite)
+				F.Intrinsic.Control.Else
+					F.Intrinsic.String.Concat(V.Local.sWrite,V.Ambient.NewLine,V.uGlobal.uInvoice(V.Local.i)!Customer,V.uGlobal.uInvoice(V.Local.i)!Invoice,V.uGlobal.uInvoice(V.Local.i)!Invoice_Date,V.uGlobal.uInvoice(V.Local.i)!Salesperson,V.uGlobal.uInvoice(V.Local.i)!Order,V.Local.sInvTotal,V.Local.sCommPay,V.Local.sFiller,V.Local.sWrite)
+				F.Intrinsic.Control.EndIf
+			F.Intrinsic.Control.Next(V.Local.i)
+
+			' string to file and call th upload program
+			F.Intrinsic.File.String2File(V.Local.sFile,V.Local.sWrite)
+			F.Intrinsic.String.Concat(V.Ambient.QuadQuote,V.Caller.CompanyCode,"1UPLOCOMN",V.Ambient.QuadQuote,V.Local.sExecute)
+			F.Intrinsic.Task.LaunchGSSSync("UPL001A"," -c",V.Local.sExecute)
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.EndIf
+
+Gui.SS_Form1.cmdSave.Enabled(True)
+Gui.SS_Form1.cmdUpdate.Enabled(True)
+
+F.Intrinsic.Control.CallSub(Buildgrid)
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("cmdupdate_click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_Multi_Commission.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(Ss_form1_unload)
+Function.Intrinsic.Control.EndIf
+
+
+program.sub.cmdupdate_click.end
+
+program.sub.cmdsave_click.start
+F.Intrinsic.Control.SetErrorHandler("cmdsave_click_Err")
+F.Intrinsic.Control.ClearErrors
+
+Gui.SS_Form1.cmdSave.Enabled(false)
+Gui.SS_Form1.cmdUpdate.Enabled(false)
+
+V.Local.sError.Declare(String)
+V.Local.sSql.Declare(String)
+V.Local.sRow.Declare(String)
+V.Local.iRows.Declare(Long)
+V.Local.iRowOrd.Declare(Long)
+V.Local.i.Declare(Long)
+V.Local.iRec.Declare(Long)
+
+
+' get next rec_id
+F.ODBC.Connection!con.OpenRecordsetRO("rstSel","select max(Rec_Id) as Rec_Id from GCG_Comm_Review")
+	F.Intrinsic.Control.If(V.ODBC.con!rstSel.EOF,=,False)
+		F.Intrinsic.Control.If(V.ODBC.con!rstSel.FieldValtrim!Rec_Id,=,"")
+			V.Local.iRec.Set(0)
+		F.Intrinsic.Control.Else
+			V.Local.iRec.Set(V.ODBC.con!rstSel.FieldVal!Rec_Id)
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.EndIf
+F.ODBC.con!rstSel.Close
+
+' commit the grid information, to be sure last minute changes were saved
+Gui.SS_Form1.gsfgComm.Commit
+
+' be sure there is data in at least the first row
+Gui.SS_Form1.gsfgComm.ReadRow(1,V.Local.sRow)
+F.Intrinsic.String.Split(V.Local.sRow,"*!*",V.Local.sRow)
+F.Intrinsic.Control.If(V.Local.sRow(0),<>,"")
+
+	' save the information from each ro to the temp table	
+	V.Local.iRows.Set(V.Screen.SS_Form1!gsfgComm.Rows)
+	F.Intrinsic.Control.For(V.Local.i,2,V.Local.iRows,1)
+		F.Intrinsic.Math.Add(V.Local.iRec,1,V.Local.iRec)
+		F.Intrinsic.Math.Sub(V.Local.i,1,V.Local.iRowOrd)
+		Gui.SS_Form1.gsfgComm.ReadRow(V.Local.iRowOrd,V.Local.sRow)
+		F.Intrinsic.String.Split(V.Local.sRow,"*!*",V.Local.sRow)
+		F.Intrinsic.String.Rpad(V.local.sRow(2).Trim,"0",4,V.local.sRow(2))
+
+		F.Intrinsic.String.Concat("Select *from GCG_Comm_Review where Invoice = '",V.Local.sRow(0).Trim,"' and Order_Number = '",V.Local.sRow(1).Trim,"' and Order_Line = '",V.Local.sRow(2).Trim,"' and Customer_ID='",V.Local.sRow(3),"' and Salesperson = '",V.Local.sRow(5).Trim,"' and Comm_Type='",V.Local.sRow(8),"'",V.Local.sSql)
+		F.ODBC.Connection!con.OpenLocalRecordsetRW("rst",V.Local.sSql)
+
+			' add new record if record for key information doesn't exist
+			F.Intrinsic.Control.If(V.ODBC.con!rst.EOF,=,True)
+				F.ODBC.con!rst.AddNew
+				F.ODBC.con!rst.Set!Rec_Id(V.Local.iRec)
+				F.ODBC.con!rst.Set!Invoice(V.Local.sRow(0).Trim)
+				F.ODBC.con!rst.Set!Order_Number(V.Local.sRow(1).Trim)
+				F.ODBC.con!rst.Set!Order_Line(V.Local.sRow(2).Trim)
+				F.ODBC.con!rst.Set!Customer_ID(V.Local.sRow(3).Trim)
+				F.ODBC.con!rst.Set!Date_Invoice(V.Local.sRow(4))
+				F.ODBC.con!rst.Set!Salesperson(V.Local.sRow(5).Trim)
+				F.ODBC.con!rst.Set!Part(V.Local.sRow(6).Trim)
+				F.ODBC.con!rst.Set!Product_Line(V.Local.sRow(7).Trim)
+				F.ODBC.con!rst.Set!Comm_Type(V.Local.sRow(8).Trim)
+				F.ODBC.con!rst.Set!Extension(V.Local.sRow(9).Float)
+			F.Intrinsic.Control.EndIf
+
+			' Rate and Amount, could just be updates
+				F.ODBC.con!rst.Set!Comm_Rate(V.Local.sRow(11).Float)
+				F.ODBC.con!rst.Set!Comm_Amount(V.Local.sRow(12).Float)
+				F.ODBC.con!rst.Set!Changed("Y")
+			F.ODBC.con!rst.Update
+		F.ODBC.con!rst.Close
+	F.Intrinsic.Control.Next(V.Local.i)
+F.Intrinsic.Control.EndIf
+
+Gui.SS_Form1.cmdSave.Enabled(True)
+Gui.SS_Form1.cmdUpdate.Enabled(True)
+
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("cmdsave_click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_Multi_Commission.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(Ss_form1_unload)
+Function.Intrinsic.Control.EndIf
+
+program.sub.cmdsave_click.end
+
+program.sub.ss_form1_unload.start
+
+
+F.ODBC.Connection!con.Close
+F.Intrinsic.Control.End
+
+program.sub.ss_form1_unload.end
+
+program.sub.cmdselect_click.start
+F.Intrinsic.Control.SetErrorHandler("cmdselect_click_Err")
+F.Intrinsic.Control.ClearErrors
+V.Local.sError.Declare(String)
+
+
+
+
+V.Local.iFor.Declare(Long)
+
+V.uGlobal.uScreen.Redim(-1,-1)
+V.uGlobal.uLine.Redim(-1,-1)
+V.uGlobal.uHead.Redim(-1,-1)
+V.uGlobal.uInvoice.Redim(-1,-1)
+V.uGlobal.uInvoiceExt.Redim(-1,-1)
+V.uGlobal.uVendors.Redim(-1,-1)
+
+F.Intrinsic.Control.CallSub(Getinvoices)
+
+' check for records
+F.Intrinsic.Control.If(V.uGlobal.uLine!Invoice.UBound,=,-1)
+	F.Intrinsic.UI.Msgbox("No Records Found")
+	F.Intrinsic.UI.CloseWaitDialog
+	Gui.SS_Form1.gsfgComm.Visible(True)
+	F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.CallSub(Getvendors)
+
+' for each salesperson, get the commissiontype and add a record to the screen data
+F.Intrinsic.Control.For(V.Local.iFor,V.uGlobal.uVendors!Vendor.LBound,V.uGlobal.uVendors!Vendor.UBound,1)
+	F.Intrinsic.Control.CallSub(Addrec,"VENDOR",V.uGlobal.uVendors(v.Local.iFor)!Vendor,"FOR",V.Local.iFor)
+F.Intrinsic.Control.Next(V.Local.iFor)
+
+' remove records without a type
+F.Intrinsic.Variable.UDTMultiFlag(V.uGlobal.uScreen!Comm_Type,"")
+F.Intrinsic.Variable.UDTDeleteFlagged(V.uGlobal.uScreen)
+
+' if lines exist, load grid
+F.Intrinsic.Control.If(V.uGlobal.uScreen!Invoice.UBound,>,-1)
+	F.Intrinsic.Variable.UDTMultiQuickSort(V.uGlobal.uScreen!Invoice,False,V.uGlobal.uScreen!Order_No,False,V.uGlobal.uScreen!Order_Line,False)
+	Gui.SS_Form1.gsfgComm.LoadFromUDT("V.uGlobal.uScreen","Invoice*!*Order_No*!*Order_Line*!*Customer*!*Date_Invoice*!*Salesperson*!*Part*!*Product_Line*!*Comm_Type*!*Extension*!*Paid_As*!*Comm_Rate*!*Comm_Amt",1)
+F.Intrinsic.Control.EndIf
+
+'show the grid after it's filled....watching it fill is tedious and boring
+F.Intrinsic.UI.CloseWaitDialog
+Gui.SS_Form1.gsfgComm.Visible(true)
+
+
+
+
+F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.Label("cmdselect_click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_1226_MultiSP_Comm_Review.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+Function.Intrinsic.Control.EndIf
+'
+
+program.sub.cmdselect_click.end
+
+program.sub.gsfgcomm_mousedown.start
+F.Intrinsic.Control.SetErrorHandler("gsfgcomm_mousedown_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+' make sure the click was on the column header
+F.Intrinsic.Control.If(V.Args.MouseRow,<>,0)
+	F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.EndIf
+
+V.Local.iMouseCol.Declare(Long)
+V.Local.iMouseCol.Set(V.Args.MouseCol)
+
+' sort by column clicked
+F.Intrinsic.Control.SelectCase(V.Local.iMouseCol)
+	F.Intrinsic.Control.Case(0)
+		Gui.SS_Form1.gsfgComm.SortColumn(0,0)
+	F.Intrinsic.Control.Case(1)
+		Gui.SS_Form1.gsfgComm.SortColumn(1,0)
+	F.Intrinsic.Control.Case(2)
+		Gui.SS_Form1.gsfgComm.SortColumn(2,0)
+	F.Intrinsic.Control.Case(3)
+		Gui.SS_Form1.gsfgComm.SortColumn(3,0)
+	F.Intrinsic.Control.Case(4)
+		Gui.SS_Form1.gsfgComm.SortColumn(4,0)
+	F.Intrinsic.Control.Case(5)
+		Gui.SS_Form1.gsfgComm.SortColumn(5,2)
+	F.Intrinsic.Control.Case(6)
+		Gui.SS_Form1.gsfgComm.SortColumn(6,0)
+	F.Intrinsic.Control.Case(7)
+		Gui.SS_Form1.gsfgComm.SortColumn(7,0)
+	F.Intrinsic.Control.Case(8)
+		Gui.SS_Form1.gsfgComm.SortColumn(8,0)
+	F.Intrinsic.Control.Case(9)
+		Gui.SS_Form1.gsfgComm.SortColumn(9,0)
+	F.Intrinsic.Control.Case(10)
+		Gui.SS_Form1.gsfgComm.SortColumn(10,0)
+	F.Intrinsic.Control.Case(11)
+		Gui.SS_Form1.gsfgComm.SortColumn(11,1)
+	F.Intrinsic.Control.Case(12)
+		Gui.SS_Form1.gsfgComm.SortColumn(12,1)
+F.Intrinsic.Control.EndSelect
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("gsfgcomm_mousedown_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_Multi_Commission_Split_Review.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(Ss_form1_unload)
+Function.Intrinsic.Control.EndIf
+
+program.sub.gsfgcomm_mousedown.end
+
+program.sub.gsfgcomm_posttextmatrix.start
+F.Intrinsic.Control.SetErrorHandler("gsfgcomm_posttextmatrix_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+V.Local.fRate.Declare(Float)
+V.Local.fAmount.Declare(Float)
+V.Local.fQtyOrd.Declare(Float)
+V.Local.fExtension.Declare(Float)
+V.Local.sGross.Declare(String)
+V.Local.sInvoice.Declare(String)
+V.Local.sRet.Declare(String)
+V.Local.fVal.Declare(Float)
+V.Local.sOrder.Declare(String)
+V.Local.sLine.Declare(String)
+
+
+Gui.SS_Form1.gsfgComm.GetTextMatrix(10,V.Args.Key,V.Local.sGross)
+Gui.SS_Form1.gsfgComm.GetTextMatrix(0,V.Args.Key,V.Local.sInvoice)
+Gui.SS_Form1.gsfgComm.GetTextMatrix(1,V.Args.Key,V.Local.sOrder)
+Gui.SS_Form1.gsfgComm.GetTextMatrix(2,V.Args.Key,V.Local.sLine)
+F.Intrinsic.String.Rpad(V.local.sLine.Trim,"0",4,V.local.sLine)
+
+F.Intrinsic.Control.SelectCase(V.Args.Column)
+
+	' if change in Rate column
+	F.Intrinsic.Control.Case(11)
+		Gui.SS_Form1.gsfgComm.GetTextMatrix(V.Args.Column,V.Args.Key,V.Local.fRate)
+
+		' if the existing rate is 0, read the Amount
+		F.Intrinsic.Control.If(V.Local.fRate,=,0)
+			Gui.SS_Form1.gsfgComm.TextMatrix(12,V.Args.Key,0)
+
+		' if the Rate > 0, then determine new Amount based on new Rate
+		F.Intrinsic.Control.Else
+			Gui.SS_Form1.gsfgComm.GetTextMatrix(9,V.Args.Key,V.Local.fExtension)
+
+			' rate already reflected in decimal
+			V.Local.fAmount.Set(V.Local.fRate)
+			F.Intrinsic.Control.If(V.Local.sGross.UCase,=,"GROSS")
+				F.Intrinsic.Variable.UDTMultiSeek(V.uGlobal.uLine!Invoice,V.Local.sInvoice,V.uGlobal.uLine!Order_No,V.Local.sOrder,V.uGlobal.uLine!Order_Line,V.Local.sLine,V.Local.sRet)
+				F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+		 		F.Intrinsic.Math.Sub(V.uGlobal.uLine(v.Local.sRet(0))!Price_Discount_Order,V.uGlobal.uLine(v.Local.sRet(0))!Cost,V.Local.fVal)
+				F.Intrinsic.Math.Mult(V.Local.fVal,V.Local.fRate,V.Local.fAmount)
+			F.Intrinsic.Control.Else
+				F.Intrinsic.Math.Mult(V.Local.fExtension,V.Local.fAmount,V.Local.fAmount)
+			F.Intrinsic.Control.EndIf
+				F.Intrinsic.Math.Round(V.Local.fAmount,2,V.Local.fAmount)
+				Gui.SS_Form1.gsfgComm.TextMatrix(12,V.Args.Key,V.Local.fAmount)
+
+		F.Intrinsic.Control.EndIf
+
+	' if change in Amount column
+	F.Intrinsic.Control.Case(12)
+	
+		' if gross, not just ext * rate
+		F.Intrinsic.Control.If(V.Local.sGross.UCase,<>,"GROSS")
+
+			' get Extension and Amount to calcualte new Rate
+			Gui.SS_Form1.gsfgComm.GetTextMatrix(9,V.Args.Key,V.Local.fExtension)
+			Gui.SS_Form1.gsfgComm.GetTextMatrix(12,V.Args.Key,V.Local.fAmount)
+			F.Intrinsic.Math.Div(V.Local.fAmount,V.Local.fExtension,V.Local.fRate)
+			F.Intrinsic.Math.Round(V.Local.fRate,2,V.Local.fRate)
+			Gui.SS_Form1.gsfgComm.TextMatrix(11,V.Args.Key,V.Local.fRate)
+		F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.EndSelect
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("gsfgcomm_posttextmatrix_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_Multi_Commission.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(Ss_form1_unload)
+Function.Intrinsic.Control.EndIf
+
+program.sub.gsfgcomm_posttextmatrix.end
+
+Program.Sub.buildGrid.Start
+
+F.Intrinsic.Control.SetErrorHandler("BuildGrid_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+
+Gui.SS_Form1.gsfgComm.Rows(1)
+Gui.SS_Form1.gsfgComm.Rows(2)
+Gui.SS_Form1.gsfgComm.Cols(13)
+Gui.SS_Form1.gsfgComm.FixedRows(1)
+
+Gui.SS_Form1.gsfgComm.BuildStyle(1,0,"Format","Alignment",2)
+Gui.SS_Form1.gsfgComm.BuildStyle(1,1,"Format","Alignment",2)
+Gui.SS_Form1.gsfgComm.BuildStyle(1,2,"Format","Alignment",2)
+Gui.SS_Form1.gsfgComm.BuildStyle(1,3,"Format","Alignment",2)
+Gui.SS_Form1.gsfgComm.BuildStyle(1,4,"Format","Alignment",2)
+Gui.SS_Form1.gsfgComm.BuildStyle(1,5,"Format","Alignment",2)
+Gui.SS_Form1.gsfgComm.BuildStyle(1,6,"Format","Alignment",2)
+Gui.SS_Form1.gsfgComm.BuildStyle(1,7,"Format","Alignment",2)
+Gui.SS_Form1.gsfgComm.BuildStyle(1,8,"Format","Alignment",2)
+Gui.SS_Form1.gsfgComm.BuildStyle(1,9,"Format","Alignment",6)
+Gui.SS_Form1.gsfgComm.BuildStyle(1,9,"Format","Numeric",True)
+Gui.SS_Form1.gsfgComm.BuildStyle(1,10,"Format","Alignment",2)
+Gui.SS_Form1.gsfgComm.BuildStyle(1,11,"Format","Alignment",6)
+Gui.SS_Form1.gsfgComm.BuildStyle(1,11,"Format","Numeric",True)
+Gui.SS_Form1.gsfgComm.BuildStyle(1,12,"Format","Alignment",6)
+Gui.SS_Form1.gsfgComm.BuildStyle(1,12,"Format","Numeric",True)
+
+Gui.SS_Form1.gsfgComm.BuildStyle(1,0,"Type","Locked",True)
+Gui.SS_Form1.gsfgComm.BuildStyle(1,1,"Type","Locked",True)
+Gui.SS_Form1.gsfgComm.BuildStyle(1,2,"Type","Locked",True)
+Gui.SS_Form1.gsfgComm.BuildStyle(1,3,"Type","Locked",True)
+Gui.SS_Form1.gsfgComm.BuildStyle(1,4,"Type","Locked",True)
+Gui.SS_Form1.gsfgComm.BuildStyle(1,5,"Type","Locked",True)
+Gui.SS_Form1.gsfgComm.BuildStyle(1,6,"Type","Locked",True)
+Gui.SS_Form1.gsfgComm.BuildStyle(1,7,"Type","Locked",True)
+Gui.SS_Form1.gsfgComm.BuildStyle(1,8,"Type","Locked",True)
+Gui.SS_Form1.gsfgComm.BuildStyle(1,9,"Type","Locked",True)
+Gui.SS_Form1.gsfgComm.BuildStyle(1,10,"Type","Locked",True)
+
+Gui.SS_Form1.gsfgComm.TextMatrix(0,0,"Invoice")
+Gui.SS_Form1.gsfgComm.TextMatrix(1,0,"Order")
+Gui.SS_Form1.gsfgComm.TextMatrix(2,0,"Line")
+Gui.SS_Form1.gsfgComm.TextMatrix(3,0,"Customer")
+Gui.SS_Form1.gsfgComm.TextMatrix(4,0,"Date Invoice")
+Gui.SS_Form1.gsfgComm.TextMatrix(5,0,"SP")
+Gui.SS_Form1.gsfgComm.TextMatrix(6,0,"Part")
+Gui.SS_Form1.gsfgComm.TextMatrix(7,0,"PL")
+Gui.SS_Form1.gsfgComm.TextMatrix(8,0,"Type")
+Gui.SS_Form1.gsfgComm.TextMatrix(9,0,"Extension")
+Gui.SS_Form1.gsfgComm.TextMatrix(10,0,"Paid As")
+Gui.SS_Form1.gsfgComm.TextMatrix(11,0,"Rate")
+Gui.SS_Form1.gsfgComm.TextMatrix(12,0,"Amount")
+
+
+Gui.SS_Form1.gsfgComm.SetColumnPercentages(".075:.075:.060:.075:.085:.085:.150:.035:.085:.085:.055:.055:.085")
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("BuildGrid_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_Multi_Commission.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(Ss_form1_unload)
+Function.Intrinsic.Control.EndIf
+
+
+
+Program.Sub.buildGrid.End
+
+Program.Sub.getCommType.Start
+F.Intrinsic.Control.SetErrorHandler("getCommType_Err")
+F.Intrinsic.Control.ClearErrors
+V.Local.sError.Declare(String)
+
+
+
+
+V.Local.sSel.Declare(String)
+V.Local.sRet.Declare(String)
+V.Local.iFor.Declare(Long)
+V.Local.fRate.Declare(Float)
+
+'========PRODUCT LINE
+F.Intrinsic.String.Concat("select Rate from GCG_COMM_PL where Salesperson ='",V.Args.VENDOR,"' and Product_Line ='",V.uGlobal.uLine(v.Args.FOR)!Product_Line,"' ",V.Local.sSel)
+F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSel,V.Local.sRet)
+F.Intrinsic.Control.If(V.Local.sRet.Trim,<>,"")
+	F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+'	V.uGlobal.uLine(v.Args.FOR)!Type.Set("PROD LINE")
+	V.Local.fRate.Set(V.Local.sRet(0).Float)
+F.Intrinsic.Control.EndIf
+
+'========PRODUCT CATEGORY
+F.Intrinsic.String.Concat("select Rate from GCG_Comm_Cat where Salesperson ='",V.Args.VENDOR,"' and Product ='",V.uGlobal.uLine(v.Args.FOR)!Category,"' and Minimum_Sales <='",V.uGlobal.uLine(v.Args.FOR)!Extension,"' ",V.Local.sSel)
+F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSel,V.Local.sRet)
+F.Intrinsic.Control.If(V.Local.sRet.Trim,<>,"")
+	F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+'	V.uGlobal.uLine(v.Args.FOR)!Type.Set("PROD CAT")
+	V.Local.fRate.Set(V.Local.sRet(0).Float)
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Variable.AddRV("RATE",V.Local.fRate)
+
+
+
+
+
+F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.Label("getCommType_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_1226_MultiSP_Comm_Review.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+Function.Intrinsic.Control.EndIf
+
+
+Program.Sub.getCommType.End
+
+Program.Sub.addRec.Start
+F.Intrinsic.Control.SetErrorHandler("addRec_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+V.Local.iFor.Declare(Long)
+V.Local.sSel.Declare(String)
+V.Local.sRet.Declare(String)
+V.Local.fVal.Declare(Float)
+V.Local.sVal.Declare(String)
+V.Local.sRate.Declare(String)
+V.Local.fRate.Declare(Float)
+V.Local.sCategory.Declare(String)
+V.Local.sTrimVal.Declare(String)
+V.Local.sType.Declare(String)
+V.Static.iRedim.Declare(Long)
+V.Local.fCost.Declare(Float)
+V.Local.fPrice.Declare(Float)
+V.Local.sLine.Declare(String)
+V.Local.fNetSales.Declare(String)
+V.Local.sTier.Declare(String)
+
+'default gross to Net. will change to Gross, if necessary
+V.Local.sGross.Declare(String,"Net")
+
+' if the program gets here, there must be at least one record to add
+' need to redim to 0,0 initially so we can use the redimpreserve
+F.Intrinsic.Control.If(V.uGlobal.uScreen!Comm_Amt.UBound,=,-1)
+	V.uGlobal.uScreen.Redim(0,0)
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.For(V.Local.iFor,V.uGlobal.uLine!Customer.LBound,V.uGlobal.uLine!Customer.UBound,1)
+	V.Local.fRate.Set(0)
+	V.Local.fCost.Set(0)
+	V.Local.fPrice.Set(0)
+
+	F.Intrinsic.Control.CallSub(Getexceptions,"CUSTOMER",V.uGlobal.uLine(v.Local.iFor)!Customer,"VENDOR",V.Args.VENDOR,"FOR",V.Local.iFor)
+	F.Intrinsic.Control.If(V.Args.EXCLUDE,=,"Y")
+		F.Intrinsic.Control.GoTo("EXCLUDE")
+	F.Intrinsic.Control.EndIf
+	V.Local.sType.Set(V.Args.EXCLUDE)
+
+	F.Intrinsic.Control.CallSub(Getcommtype,"FOR",V.Local.iFor)
+	V.Local.fRate.Set(V.Args.RATE)
+	V.uGlobal.uLine(v.Local.iFor)!Gross.Set(0)
+
+	'========STATE
+	F.Intrinsic.String.Concat("select Salesperson,Gross from GCG_COMM_State where Salesperson ='",V.Args.VENDOR,"' and  (State = 'ALL' or State ='",V.uGlobal.uLine(v.local.iFor)!State,"') ",V.Local.sSel)
+	F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSel,V.Local.sRet)
+	F.Intrinsic.Control.If(V.Local.sRet.Trim,<>,"")
+		F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+		V.uGlobal.uVendors(v.Args.FOR)!CommType.Set("STATE")
+		V.Local.sType.Set("STATE")
+		V.uGlobal.uLine(v.Local.iFor)!Gross.Set(V.Local.sRet(1).Long)
+	F.Intrinsic.Control.EndIf
+
+	'========PROVINCE
+	F.Intrinsic.String.Concat("select Salesperson, Gross from GCG_COMM_Prov where Salesperson ='",V.Args.VENDOR,"' and  (Province = 'ALL' or Province ='",V.uGlobal.uLine(v.local.iFor)!Province,"') ",V.Local.sSel)
+	F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSel,V.Local.sRet)
+	F.Intrinsic.Control.If(V.Local.sRet.Trim,<>,"")
+		F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+		V.uGlobal.uVendors(v.Args.FOR)!CommType.Set("PROVINCE")
+		V.Local.sType.Set("PROVINCE")
+		V.uGlobal.uLine(v.Local.iFor)!Gross.Set(V.Local.sRet(1).Long)
+	F.Intrinsic.Control.EndIf
+		
+	'========COUNTRY
+	F.Intrinsic.String.Concat("select Salesperson, Gross from GCG_COMM_Country where Salesperson ='",V.Args.VENDOR,"' and (Country ='ALL' or Country ='",V.uGlobal.uLine(v.local.iFor)!Country,"') ",V.Local.sSel)
+	F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSel,V.Local.sRet)
+	F.Intrinsic.Control.If(V.Local.sRet.Trim,<>,"")
+		F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+		V.uGlobal.uVendors(v.Args.FOR)!CommType.Set("COUNTRY")
+		V.Local.sType.Set("COUNTRY")
+		V.uGlobal.uLine(v.Local.iFor)!Gross.Set(V.Local.sRet(1).Long)
+	F.Intrinsic.Control.EndIf
+
+	F.Intrinsic.Math.Add(V.Static.iRedim,1,V.Static.iRedim)
+	V.uGlobal.uScreen.RedimPreserve(0,V.Static.iRedim)
+
+	
+
+	'get net sales ytd value.
+	F.Intrinsic.String.Concat("select Net_Sales,Tier from GCG_COMM_Cat_Tier where Salesperson ='",V.Args.VENDOR,"' and Category ='",V.uGlobal.uLine(v.Local.iFor)!Category,"'",V.Local.sSel)
+	F.ODBC.Connection!con.OpenLocalRecordsetRO("rstNet",V.Local.sSel)
+	F.Intrinsic.Control.If(V.ODBC.con!rstNet.EOF,=,False)
+		V.Local.fNetSales.Set(V.ODBC.con!rstNet.FieldValFloat!Net_sales)
+		V.Local.sTier.Set(V.ODBC.con!rstNet.FieldValTrim!Tier)
+
+	F.Intrinsic.Control.Else
+		V.Local.fNetSales.set(0)
+		V.Local.sTier.Set("")
+	F.Intrinsic.Control.EndIf
+	F.ODBC.con!rstNet.Close
+
+
+
+
+	' determine override RATE, based on rules, in this order:
+' 1.If GCG_COMM_CAT.Tiered is checked, commission Amount will be GCG_COMM_CAT.RATE * GCG_CAT_TIER.NET_SALES.
+	' If GCG_COMM_CAT.Tiered is NOT checked, commission Amount will be the GCG_COMM_CAT.RATE (flat rate).
+	F.Intrinsic.String.Trim(V.uGlobal.uLine(v.Local.iFor)!Category,V.Local.sVal)
+	F.Intrinsic.String.Concat("select Tiered, Rate from GCG_COMM_Cat where Salesperson ='",V.Args.VENDOR,"' and Product ='",V.Local.sVal,"' and Minimum_Sales <= '",V.Local.fNetSales,"' order by Minimum_Sales desc ",V.Local.sSel)
+	F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSel,V.Local.sRet)
+	F.Intrinsic.Control.If(V.Local.sRet.Trim,<>,"")
+'		V.Local.sType.Set("PROD CAT")
+		F.Intrinsic.String.Split(V.Local.sRet,"#$#",V.Local.sRet)
+		F.Intrinsic.String.Split(V.Local.sRet(0),"*!*",V.Local.sRet)
+		V.Local.fRate.Set(V.Local.sRet(1).Float)
+'		F.Intrinsic.Control.If(V.Local.sRet(0),=,"1")
+'			F.Intrinsic.String.Concat("select Net_Sales from GCG_COMM_Cat_Tier where Salesperson ='",V.Args.VENDOR,"' and Category ='",V.uGlobal.uLine(v.Local.iFor)!Category,"' and Tier ='",V.Local.sTier,"' ",V.Local.sSel)
+'			F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSel,V.Local.sRet)
+'			F.Intrinsic.Control.If(V.Local.sRet.Trim,<>,"")
+'				F.Intrinsic.Math.Mult(V.Local.fRate,V.uGlobal.uLine(v.Local.iFor)!Extension,V.Local.fRate)
+'				v.Local.fRate.Set(
+'			F.Intrinsic.Control.EndIf
+'		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.EndIf
+
+' 2. Read GCG_COMM_CUST_PC, where CUSTOMER = Order_Hist_Head.CUSTOMER and CATEGORY = Inventory_Mst2.TEXT_INFO1. If a match is found, apply this RATE
+	F.Intrinsic.String.Build("select Rate from GCG_COMM_Cust_PC where Customer = '{0}' and Category = '{1}' and Salesperson = '{2}'",V.uGlobal.uLine(v.Local.iFor)!Customer,V.uGlobal.uLine(v.Local.iFor)!Category,V.Args.VENDOR,V.Local.sSel)
+	F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSel,V.Local.sRet)
+	F.Intrinsic.Control.If(V.Local.sRet.Trim,<>,"")
+		V.Local.fRate.Set(V.Local.sRet.Float)
+	F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.If(V.Args.VENDOR,=,"100222")
+'	
+	
+F.Intrinsic.Control.ElseIf(V.uGlobal.uLine(v.Local.iFor)!Salesperson,=,"100220")
+'
+
+
+	
+F.Intrinsic.Control.EndIf
+
+
+' 3. Read GCG_COMM_Cust_PL, where CUSTOMER = Order_Hist_Head.CUSTOMER  and PL = Order_Hist_Line.PRODUCT_LINE. If a match is found, apply this RATE.
+	F.Intrinsic.String.Build("select Rate from GCG_COMM_Cust_PL where Customer ='{0}'  and Product_Line ='{1}' and Salesperson = '{2}' ",V.uGlobal.uLine(v.Local.iFor)!Customer,V.uGlobal.uLine(v.Local.iFor)!Product_Line,V.args.VENDOR,V.Local.sSel)
+	F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSel,V.Local.sRet)
+	F.Intrinsic.Control.If(V.Local.sRet.Trim,<>,"")
+		V.Local.fRate.Set(V.Local.sRet.Float)
+	F.Intrinsic.Control.EndIf
+
+' 4. Read GCG_COMM_CUST_PART, where CUSTOMER = Order_Hist_Head.CUSTOMER and PART = Order_Hist_Line.PART. If a match is found, apply this RATE.
+	F.Intrinsic.String.Build("select Rate from GCG_COMM_Cust_Part where Customer ='{0}' and Part = '{1}' and Salesperson = '{2}' ",V.uGlobal.uLine(v.Local.iFor)!Customer,V.uGlobal.uLine(v.Local.iFor)!Part,V.Args.VENDOR,V.Local.sSel)
+	F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSel,V.Local.sRet)
+	F.Intrinsic.Control.If(V.Local.sRet.Trim,<>,"")
+		V.Local.fRate.Set(V.Local.sRet.Float)
+	F.Intrinsic.Control.EndIf
+
+	' see if screen value has already been saved
+	F.Intrinsic.String.Concat("select Comm_Rate, Comm_Amount  from GCG_Comm_Review where Invoice = '",V.uglobal.uLine(v.local.iFor)!INvoice,"' And Order_Number ='",V.uGlobal.uLine(v.Local.iFor)!Order_No,"' and Order_Line='",V.uGlobal.uLine(v.Local.iFor)!Order_Line,"' and Salesperson ='",V.Args.VENDOR,"' and Comm_Type = '",V.Local.sType,"' ",V.Local.sSel)
+	F.ODBC.Connection!con.ExecuteandReturn(V.Local.sSel,V.Local.sRet)
+	' if the order line has already been saved, get the saved rate and amount
+	F.Intrinsic.Control.If(V.Local.sRet,<>,"")
+	 	F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+		V.Local.sRet.RedimPreserve(0,1)
+	 	V.uGlobal.uScreen(V.Static.iRedim)!Comm_Rate.Set(V.Local.sRet(0))
+	 	V.uGlobal.uScreen(V.Static.iRedim)!Comm_Amt.Set(V.Local.sRet(1))
+	F.Intrinsic.Control.Else
+
+		F.Intrinsic.Control.If(V.uGlobal.uLine(v.Local.iFor)!Gross,=,1)
+			F.Intrinsic.Math.Mult(V.uGlobal.uLine(v.Local.iFor)!Qty_Ordered,V.uGlobal.uLine(v.Local.iFor)!Cost,V.Local.fCost)
+			F.Intrinsic.Math.Mult(V.uGlobal.uLine(v.Local.iFor)!Qty_Ordered,V.uGlobal.uLine(v.Local.iFor)!Price_Discount_Order,V.Local.fPrice)
+	 		F.Intrinsic.Math.Sub(V.Local.fPrice,V.Local.fCost,V.Local.fVal)
+	 		F.Intrinsic.Math.Mult(V.Local.fVal,V.Local.fRate,V.Local.fVal)
+	 	F.Intrinsic.Control.Else
+	 		F.Intrinsic.Math.Mult(V.uGlobal.uLine(v.Local.iFor)!Extension,V.Local.fRate,V.Local.fVal)
+	 	F.Intrinsic.Control.Endif
+
+	 	F.Intrinsic.String.Format(V.Local.fVal,"0.00",V.Local.sVal)
+	 	V.uGlobal.uScreen(V.Static.iRedim)!Comm_Rate.Set(V.Local.fRate)
+	 	V.uGlobal.uScreen(V.Static.iRedim)!Comm_Amt.Set(V.Local.sVal)
+	 F.Intrinsic.Control.EndIf
+
+	V.uGlobal.uScreen(V.Static.iRedim)!Invoice.Set(V.uGlobal.uLine(v.Local.iFor)!Invoice)
+	V.uGlobal.uScreen(V.Static.iRedim)!Order_No.Set(V.uGlobal.uLine(v.Local.iFor)!Order_No)
+	F.Intrinsic.String.Left(V.uGlobal.uLine(v.Local.iFor)!Order_Line,3,V.Local.sLine)
+	V.uGlobal.uScreen(V.Static.iRedim)!Order_Line.Set(V.Local.sLine)
+	V.uGlobal.uScreen(V.Static.iRedim)!Customer.Set(V.uGlobal.uLine(v.Local.iFor)!Customer)
+	V.uGlobal.uScreen(V.Static.iRedim)!Date_Invoice.Set(V.uGlobal.uLine(v.Local.iFor)!Date_Invoice)
+	V.uGlobal.uScreen(V.Static.iRedim)!Part.Set(V.uGlobal.uLine(v.Local.iFor)!Part)
+	V.uGlobal.uScreen(V.Static.iRedim)!Product_Line.Set(V.uGlobal.uLine(v.Local.iFor)!Product_Line)
+	V.uGlobal.uScreen(V.Static.iRedim)!Extension.Set(V.uGlobal.uLine(v.Local.iFor)!Extension)
+	F.Intrinsic.Control.If(V.uGlobal.uLine(v.Local.iFor)!Gross,=,1)
+	 	V.Local.sGross.Set("Gross")
+	F.Intrinsic.Control.Else
+		V.Local.sGross.Set("Net")
+	 F.Intrinsic.Control.EndIf
+	V.uGlobal.uScreen(V.Static.iRedim)!Paid_As.Set(V.Local.sGross)
+	V.uGlobal.uScreen(V.Static.iRedim)!Comm_Type.Set(V.Local.sType)
+	V.uGlobal.uScreen(V.Static.iRedim)!Salesperson.Set(V.Args.VENDOR)
+
+	F.Intrinsic.Control.Label("EXCLUDE")
+F.Intrinsic.Control.Next(V.Local.iFor)
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("addRec_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_1226_MultiSP_Comm_Review.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+Function.Intrinsic.Control.EndIf
+'
+
+Program.Sub.addRec.End
+
+Program.Sub.getInvoices.Start
+
+V.Local.sSel.Declare(String)
+V.Local.sBegDate.Declare(String)
+V.Local.sEndDate.Declare(String)
+V.Local.iFor.Declare(Long)
+V.Local.sRet.Declare(String)
+V.Local.sRetb.Declare(String)
+V.Local.iUB.Declare(Long)
+
+
+Gui.SS_Form1.gsfgComm.Visible(false)
+F.Intrinsic.UI.InvokeWaitDialog("Loading...","Multiple Commissions")
+
+F.Intrinsic.String.Format(V.Screen.SS_Form1!dtpStart.Value,"YYYYMMDD",V.Local.sBegDate)
+F.Intrinsic.String.Format(V.Screen.SS_Form1!dtpEnd.Value,"YYYYMMDD",V.Local.sEndDate)
+
+' make sure udt is empty
+V.uGlobal.uLine.Redim(-1,-1)
+
+'get invoices based off of cash receipts.
+F.Intrinsic.Control.CallSub(Cash_receipts)
+
+' need to set header values to udt.  will only use records where Customer_Sales.Customer = Order_Hist_Head.Customer and Customer_Sales.C_Sort_1 = Order_Hist_Head.Code_Sort
+'F.Intrinsic.Control.For(V.Local.iFor,V.uGlobal.uLine!Invoice.LBound,V.uGlobal.uLine!Invoice.UBound,1)
+F.Intrinsic.Control.For(V.Local.iFor,V.uGlobal.uInvReceipt.LBound,V.uGlobal.uInvReceipt.UBound,1)
+		
+	'see if we are paid in full on this invoice.
+	F.Global.Accounting.GetARItemStatus(v.uGlobal.uInvReceipt(v.Local.iFor)!Customer,v.uGlobal.uInvReceipt(v.Local.iFor)!Invoice,v.Local.sRet)
+	F.Intrinsic.Control.If(V.Local.sRet.Trim,<>,"***NORETURN***")
+		F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+		F.Intrinsic.Control.If(V.Local.sRet(2),<=,0)
+			'make sure they are not RETAIL
+			'can't check against the c_sort_1 value from order header as that's populated from the order not anything else.
+			F.Intrinsic.String.Build("Select C_SORT_1 From V_CUSTOMER_SALES Where Customer = '{0}'",V.uGlobal.uInvReceipt(v.Local.iFor)!Customer,V.Local.sSel)
+			F.ODBC.Connection!con.OpenLocalRecordsetRO("rstCode",V.Local.sSel)
+			F.Intrinsic.Control.If(V.ODBC.con!rstCode.EOF,=,False)
+				V.local.sRet.Set(V.ODBC.con!rstCode.FieldValTrim!C_Sort_1)
+				F.Intrinsic.Control.If(V.local.sRet.UCase,<>,"RETAIL")
+					F.Intrinsic.String.Build("select Invoice, Order_No, Order_Suffix, Order_Line, Customer, Salesperson, Date_Invoice, Part, Product_Line, Branch, Qty_Ordered, Extension, Cost, Price_Discount_Order from V_Order_Hist_Line Where Invoice = '{0}' And Flag_Comm_Built<>'Y' And Order_line <> '8000'",V.uGlobal.uInvReceipt(v.Local.iFor)!Invoice,V.Local.sSel)
+					F.ODBC.Connection!con.OpenLocalRecordsetRO("rstSel",V.Local.sSel)
+					F.Intrinsic.Control.DoUntil(V.ODBC.con!rstSel.EOF,=,True)
+						'so we need to increase our udt value.
+						F.Intrinsic.Control.If(V.uGlobal.uLine.UBound,=,-1)
+							V.Local.iUB.Set(0)
+							V.uGlobal.uLine.Redim(0,0)
+						F.Intrinsic.Control.Else
+							F.Intrinsic.Math.Add(V.uGlobal.uLine.UBound,1,V.Local.iUB)
+							V.uGlobal.uLine.RedimPreserve(0,V.Local.iUB)
+						F.Intrinsic.Control.EndIf
+
+						'set values into udt from our recordset.
+						V.uGlobal.uLine(v.Local.iUB)!Invoice.Set(V.ODBC.con!rstSel.FieldValTrim!Invoice)
+						V.uGlobal.uLine(v.Local.iUB)!Order_No.Set(V.ODBC.con!rstSel.FieldValTrim!Order_no)
+						V.uGlobal.uLine(v.Local.iUB)!Order_suffix.Set(V.ODBC.con!rstSel.FieldValTrim!order_suffix)
+						V.uGlobal.uLine(v.Local.iUB)!Customer.Set(V.ODBC.con!rstsel.fieldvaltrim!Customer)
+						V.uGlobal.uLine(v.Local.iUB)!Salesperson.Set(V.ODBC.con!rstsel.FieldValTrim!Salesperson)
+						V.uglobal.uLine(v.Local.iUB)!Date_Invoice.Set(V.ODBC.con!rstSel.FieldValTrim!Date_invoice)
+						V.uGlobal.uLine(v.Local.iUB)!Part.Set(V.ODBC.con!rstSel.FieldValTrim!Part)
+						V.uGlobal.uLine(v.Local.iUB)!Product_Line.Set(V.ODBC.con!rstSel.FieldValTrim!Product_Line)
+						V.uGlobal.uLine(v.Local.iUB)!Branch.Set(V.ODBC.con!rstSel.FieldValTrim!Branch)
+						V.uGlobal.uLine(v.Local.iUB)!Qty_Ordered.Set(V.ODBC.con!rstSel.FieldVal!Qty_ordered)
+						V.uGlobal.uLine(v.Local.iUB)!Extension.Set(V.ODBC.con!rstsel.FieldVal!Extension)
+						V.uGlobal.uLine(v.Local.iUB)!Cost.Set(V.ODBC.con!rstSel.FieldVal!Cost)
+						V.uGlobal.uLine(v.Local.iUB)!Price_Discount_Order.Set(V.ODBC.con!rstSel.FieldVal!price_Discount_order)
+				
+						
+						F.Intrinsic.String.Concat("select Customer, State, Country, Customer_Ship, State_Ship, Country_Ship, Code_Sort from Order_Hist_Head where Invoice ='",V.uGlobal.uLine(v.local.iUB)!Invoice,"' and Order_No ='",V.uGlobal.uLine(v.local.iUB)!Order_No,"' and Order_Suffix = '",V.uGlobal.uLine(v.local.iUB)!Order_Suffix,"' ",V.Local.sSel)
+						F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSel,V.Local.sRet)
+						F.Intrinsic.Control.If(V.Local.sRet,<>,"")
+							F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+							V.Local.sRet.RedimPreserve(0,6)
+
+							F.Intrinsic.String.Concat("select * from V_Customer_Sales where Customer = '",V.Local.sRet(0),"' and C_Sort_1 ='",V.Local.sRet(6),"' ",V.Local.sSel)
+							F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSel,V.Local.sRetb)
+							F.Intrinsic.Control.If(V.Local.sRetb,<>,"")
+								V.uGlobal.uLine(v.local.iUB)!Customer.Set(V.Local.sRet(0).Trim)
+								V.uGlobal.uLine(v.local.iUB)!State.Set(V.Local.sRet(1).Trim)
+								V.uGlobal.uLine(v.local.iUB)!Country.Set(V.Local.sRet(2).Trim)
+								V.uGlobal.uLine(v.local.iUB)!Customer_Ship.Set(V.Local.sRet(3).Trim)
+								V.uGlobal.uLine(v.local.iUB)!State_Ship.Set(V.Local.sRet(4).Trim)
+								V.uGlobal.uLine(v.local.iUB)!Country_Ship.Set(V.Local.sRet(5).Trim)
+								V.uGlobal.uLine(v.local.iUB)!Code_Sort.Set(V.Local.sRet(6).Trim)
+							F.Intrinsic.Control.Else
+								f.Intrinsic.Variable.UDTFlagOrdinal(v.uGlobal.uLine,True,v.local.iUB)
+							F.Intrinsic.Control.EndIf
+
+		'					F.Intrinsic.String.Concat("select * from V_Customer_Sales where Customer = '",V.Local.sRet(0),"' and C_Sort_1 ='",V.Local.sRet(6),"' ",V.Local.sSel)
+		'					F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSel,V.Local.sRetb)
+		'					F.Intrinsic.Control.If(V.Local.sRetb,=,"")
+		'						f.Intrinsic.Variable.UDTFlagOrdinal(v.uGlobal.uLine,True,v.local.iUB)
+		'					F.Intrinsic.Control.EndIf
+
+							F.Intrinsic.String.Concat(" select Customer,County_Ship from V_Customer_ShipTo where Customer ='",V.uGlobal.uLine(v.local.iUB)!Customer,"' ",V.Local.sSel)
+							F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSel,V.Local.sRetb)
+							F.Intrinsic.Control.If(V.Local.sRetb,<>,"")
+								F.Intrinsic.String.Split(V.Local.sRetb,"*!*",V.Local.sRetb)
+								V.uGlobal.uLine(v.local.iUB)!Customer_Ship.Set(V.Local.sRet(0).Trim)
+								V.uGlobal.uLine(v.local.iUB)!Province.Set(V.Local.sRetb(1).Trim)
+							F.Intrinsic.Control.EndIf
+
+							F.Intrinsic.String.Concat("select distinct Text_Info1 from Inventory_Mst2 where Part ='",V.uGlobal.uLine(v.local.iUB)!Part,"' ",V.Local.sSel)
+							F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSel,V.Local.sRet)
+							F.Intrinsic.Control.If(V.Local.sRet.Trim,<>,"")
+								V.uGlobal.uLine(v.local.iUB)!Category.Set(V.Local.sRet.Trim)
+							F.Intrinsic.Control.EndIf
+
+							F.Intrinsic.String.Concat("select distinct Tier_Type from GCG_COMM_Cat where Product ='",V.uGlobal.uLine(v.local.iUB)!Category,"' and Salesperson ='",V.uGlobal.uLine(v.local.iUB)!Salesperson,"' ",V.Local.sSel)
+							F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSel,V.Local.sRet)
+							F.Intrinsic.Control.If(V.Local.sRet.Trim,<>,"")
+								V.uGlobal.uLine(v.local.iUB)!Tier.Set(V.Local.sRet.Trim)
+							F.Intrinsic.Control.EndIf
+						F.Intrinsic.Control.EndIf
+						F.ODBC.con!rstSel.MoveNext
+					F.Intrinsic.Control.Loop
+					F.ODBC.con!rstSel.Close
+				F.Intrinsic.Control.EndIf
+			F.Intrinsic.Control.EndIf
+			F.ODBC.con!rstCode.Close
+		F.Intrinsic.Control.Else
+			'set las so we know
+			F.Intrinsic.Debug.SetLA("Invoice: ",V.uGlobal.uInvReceipt(v.Local.iFor)!Invoice," amount is not zero. Amount:",V.uGlobal.uInvReceipt(v.Local.iFor)!Invoice)
+
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.Next(V.Local.iFor)
+
+F.Intrinsic.Variable.UDTDeleteFlagged(V.uGlobal.uLine)
+
+
+
+Program.Sub.getInvoices.End
+
+Program.Sub.getExceptions.Start
+V.Local.sSel.Declare(String)
+V.Local.sRet.Declare(String)
+V.Local.iFor.Declare(Long)
+V.Local.sExclude.Declare(String)
+
+
+
+' regardless of Type, commissions will not be paid for customers on the GCG_COMM_Cust_Exclude table
+F.Intrinsic.String.Concat("select * from GCG_COMM_Cust_Excl where Customer ='",V.Args.CUSTOMER,"' and Salesperson ='",V.Args.VENDOR,"' ",V.Local.sSel)
+F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSel,V.Local.sRet)
+	F.Intrinsic.Control.If(V.Local.sRet,<>,"")
+		V.Local.sExclude.Set("Y")
+	F.Intrinsic.Control.Else
+		V.Local.sExclude.Set("")
+	F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.If(V.Local.sExclude,<>,"Y")
+	F.Intrinsic.String.Concat("select * from GCG_COMM_Cust_Add where Customer ='",V.Args.CUSTOMER,"' and Salesperson ='",V.Args.VENDOR,"' ",V.Local.sSel)
+	F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSel,V.Local.sRet)
+		F.Intrinsic.Control.If(V.Local.sRet,<>,"")
+			V.Local.sExclude.Set("ADD")
+
+			' need to evaluate conditions for ADD:
+			' In all conditions, if GCG_COMM_TYPE.STATE = TRUE, and GCG_COMM_TYPE.BILLTO <> TRUE, and ORDER_HIST_HEAD.COUNTRY <> "US%", then commission will not be paid. Do not create a record.
+			F.Intrinsic.String.Concat("select * from GCG_COMM_State where  Salesperson ='",V.Args.VENDOR,"' and (State = 'ALL' or State = '",V.uGlobal.uLine(v.Args.FOR)!State,"') ",V.Local.sSel)
+			F.ODBC.Connection!con.ExecuteAndReturn(V.Local.sSel,V.Local.sRet)
+			F.Intrinsic.Control.If(V.Local.sRet.Trim,<>,"")
+				F.Intrinsic.String.Concat("select Country from Order_Hist_Head where Customer ='",V.Args.CUSTOMER,"' and Invoice ='",V.uGlobal.uLine(v.Args.FOR)!Invoice,"' and Order_No='",V.uGlobal.uLine(v.Args.FOR)!Order_No,"' and Country like 'US%' ",V.Local.sSel)
+				F.ODBC.Connection!con.OpenRecordsetRO("rstSel",V.Local.sSel)
+				F.Intrinsic.Control.If(V.ODBC.con!rstSel.EOF,=,True)
+					V.Local.sExclude.Set("Y")
+				F.Intrinsic.Control.EndIf
+				F.ODBC.con!rstSel.Close
+			F.Intrinsic.Control.EndIf
+
+		F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Variable.AddRV("EXCLUDE",V.Local.sExclude)
+
+Program.Sub.getExceptions.End
+
+Program.Sub.getVendors.Start
+
+V.uGlobal.uVendors.Redim(-1,-1)
+F.ODBC.Connection!con.OpenRecordsetRO("rstSel","select Vendor, Name_Vendor_Pay from Vendor_Pay_To where Rec ='2' and ucase(Number_Customer) ='SALES' order by Vendor")
+F.Intrinsic.Variable.LoadUDTFromRecordset("Con","rstSel","v.uGlobal.uVendors",False,1000)
+F.ODBC.con!rstSel.Close
+
+
+
+Program.Sub.getVendors.End
+
+Program.Sub.Cash_Receipts.Start
+F.Intrinsic.Control.SetErrorHandler("Cash_Receipts_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String)
+V.Local.sSQL.Declare(String)
+V.Local.sBeg.Declare(String)
+V.Local.sEnd.Declare(String)
+
+
+
+
+V.Local.sBeg.Set(V.Screen.SS_Form1!dtpStart.Value)
+V.Local.sEnd.Set(V.Screen.SS_Form1!dtpEnd.Value)
+
+F.Intrinsic.String.Build("Select Customer,Invoice From V_AR_OPEN_ITEMS Where Batch_Code = '11' And Date_Transaction Between '{0}' And '{1}'",V.Local.sBeg.PervasiveDate,V.Local.sEnd.PervasiveDate,V.Local.sSQL)
+
+
+F.ODBC.Connection!con.OpenLocalRecordsetRO("rst",V.Local.sSQL)
+F.Intrinsic.Control.If(V.ODBC.con!rst.EOF,=,True)
+	F.ODBC.con!rst.Close
+'	F.Intrinsic.UI.Msgbox("No cash receipts found for selected date range.","No receipts...")
+	F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.Else
+	F.Intrinsic.Variable.LoadUDTFromRecordset("con","rst","v.uglobal.uInvReceipt",False)
+	F.Intrinsic.Variable.UDTMultiFlagDuplicates(V.uGlobal.uInvReceipt!Customer,V.uGlobal.uInvReceipt!Invoice)
+	F.Intrinsic.Variable.UDTDeleteFlagged(V.uGlobal.uInvReceipt)
+F.Intrinsic.Control.EndIf
+
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Cash_Receipts_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	Function.Intrinsic.String.Concat("Project: GCG_1226_MultiSP_Comm_Review.gas",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",V.Ambient.CurrentSubroutine,V.Ambient.NewLine,"Error Occurred ",V.Ambient.ErrorNumber," with description ",V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(Ss_form1_unload)
+F.Intrinsic.Control.EndIf
+
+
+
+Program.Sub.Cash_Receipts.End
+
+
